@@ -16,40 +16,6 @@ const router = createRouter({
       component: () => import('@/pages/admin/AdminLoginPage.vue'),
       meta: { requiresAuth: false },
     },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/pages/RegisterPage.vue'),
-      meta: { requiresAuth: false },
-    },
-    // Employee routes
-    {
-      path: '/',
-      component: () => import('@/layouts/EmployeeLayout.vue'),
-      meta: { requiresAuth: true, role: 'employee' },
-      children: [
-        {
-          path: '',
-          name: 'employee-dashboard',
-          component: () => import('@/pages/employee/DashboardPage.vue'),
-        },
-        {
-          path: 'clock',
-          name: 'clock',
-          component: () => import('@/pages/employee/ClockPage.vue'),
-        },
-        {
-          path: 'history',
-          name: 'history',
-          component: () => import('@/pages/employee/HistoryPage.vue'),
-        },
-        {
-          path: 'profile',
-          name: 'profile',
-          component: () => import('@/pages/employee/ProfilePage.vue'),
-        },
-      ],
-    },
     // Admin routes
     {
       path: '/admin',
@@ -100,20 +66,7 @@ router.beforeEach((to, _from) => {
     return { name: 'admin-login' }
   }
 
-  // Protect employee routes — redirect to employee login if not authenticated
-  if ((to.path === '/' || !to.path.startsWith('/admin')) && to.meta.requiresAuth && !token) {
-    return { name: 'employee-login' }
-  }
-
-  // Role guard — redirect if user goes to wrong portal
-  if (to.meta.role && userRole !== to.meta.role) {
-    return { name: userRole === 'admin' ? 'admin-dashboard' : 'employee-dashboard' }
-  }
-
   // Redirect logged-in users away from login pages
-  if (to.name === 'employee-login' && token && userRole !== 'admin') {
-    return { name: 'employee-dashboard' }
-  }
   if (to.name === 'admin-login' && token && userRole === 'admin') {
     return { name: 'admin-dashboard' }
   }
