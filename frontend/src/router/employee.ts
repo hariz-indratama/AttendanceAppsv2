@@ -51,7 +51,7 @@ const router = createRouter({
     // Catch-all 404
     {
       path: '/:pathMatch(.*)*',
-      name: 'admin-not-found',
+      name: 'employee-not-found',
       component: NotFoundPage,
       meta: { requiresAuth: false },
     },
