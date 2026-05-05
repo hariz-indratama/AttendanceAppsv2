@@ -18,7 +18,9 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   /* Smooth theme crossfade — applied before JS for anti-flash */
-  transition: background-color 250ms ease, color 250ms ease;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
 }
 
 body {
@@ -53,108 +55,165 @@ a {
    ══════════════════════════════════════════════════════════════ */
 :root {
   /* ─── Backgrounds ──────────────────────────────────────── */
-  --bg-primary:    #f8fafc;
-  --bg-secondary:  #f1f5f9;
-  --bg-card:       #ffffff;
-  --bg-card-alt:   #f8fafc;
-  --bg-nav:        rgba(255, 255, 255, 0.92);
-  --bg-overlay:    rgba(0, 0, 0, 0.04);
-  --bg-sidebar:    #ffffff;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f8fafc;
+  --bg-nav: rgba(255, 255, 255, 0.92);
+  --bg-overlay: rgba(0, 0, 0, 0.04);
+  --bg-sidebar: #ffffff;
 
   /* ─── Borders ──────────────────────────────────────────── */
-  --border:        #e2e8f0;
+  --border: #e2e8f0;
   --border-strong: #cbd5e1;
-  --border-card:   #f1f5f9;
+  --border-card: #f1f5f9;
 
   /* ─── Text ─────────────────────────────────────────────── */
-  --text-primary:   #0f172a;
+  --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-muted:     #94a3b8;
-  --text-inverse:   #ffffff;
-  --placeholder:    #a0aec0;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+  --placeholder: #a0aec0;
 
   /* ─── Accent — Amber, the app's identity color ─────────── */
-  --accent:         #e8920c;
-  --accent-hover:   #d97706;
-  --accent-muted:   rgba(232, 146, 12, 0.08);
-  --accent-glow:    rgba(232, 146, 12, 0.15);
-  --accent-border:  rgba(232, 146, 12, 0.3);
+  --accent: #e8920c;
+  --accent-hover: #d97706;
+  --accent-muted: rgba(232, 146, 12, 0.08);
+  --accent-glow: rgba(232, 146, 12, 0.15);
+  --accent-border: rgba(232, 146, 12, 0.3);
 
   /* ─── Semantic: Success ─────────────────────────────────── */
-  --success:        #059669;
-  --success-muted:  rgba(5, 150, 105, 0.08);
-  --success-text:   #065f46;
+  --success: #059669;
+  --success-muted: rgba(5, 150, 105, 0.08);
+  --success-text: #065f46;
   --success-border: rgba(5, 150, 105, 0.25);
 
   /* ─── Semantic: Danger / Error ─────────────────────────── */
-  --danger:         #dc2626;
-  --danger-muted:   rgba(220, 38, 38, 0.06);
-  --danger-text:    #dc2626;
-  --danger-border:  rgba(220, 38, 38, 0.25);
+  --danger: #dc2626;
+  --danger-muted: rgba(220, 38, 38, 0.06);
+  --danger-text: #dc2626;
+  --danger-border: rgba(220, 38, 38, 0.25);
 
   /* ─── Admin-specific accent (Emerald) ───────────────────── */
-  --accent-admin:     #10b981;
+  --accent-admin: #10b981;
   --accent-admin-hover: #059669;
   --accent-admin-muted: rgba(16, 185, 129, 0.08);
-  --accent-admin-glow:  rgba(16, 185, 129, 0.15);
+  --accent-admin-glow: rgba(16, 185, 129, 0.15);
   --accent-admin-border: rgba(16, 185, 129, 0.3);
 
   /* ─── Disabled states ──────────────────────────────────── */
-  --disabled:       #e2e8f0;
-  --disabled-text:  #94a3b8;
+  --disabled: #e2e8f0;
+  --disabled-text: #94a3b8;
 
   /* ─── Typography ───────────────────────────────────────── */
-  --font-display:   'Syne', system-ui, sans-serif;
-  --font-body:      'DM Sans', system-ui, sans-serif;
-  --font-mono:      'IBM Plex Mono', 'Cascadia Code', monospace;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Code", monospace;
 
   /* ─── Elevation / Shadows ──────────────────────────────── */
-  --shadow-sm:      0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg:      0 12px 32px rgba(0, 0, 0, 0.1);
-  --shadow-card:    0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
   --shadow-input-focus: 0 0 0 3px var(--accent-muted);
 
   /* ─── Border Radius ─────────────────────────────────────── */
-  --radius-xs:     0.375rem;
-  --radius-sm:     0.5rem;
-  --radius-md:     0.75rem;
-  --radius-lg:     1rem;
-  --radius-xl:     1.25rem;
-  --radius-2xl:    1.5rem;
-  --radius-full:   9999px;
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
 
   /* ─── Sidebar-specific (employee portal) ──────────────── */
-  --sidebar-header-bg:    #f8fafc;
-  --sidebar-border:       #e2e8f0;
-  --sidebar-active-bg:    rgba(232, 146, 12, 0.06);
-  --sidebar-active-border:#e8920c;
-  --sidebar-hover-bg:     rgba(0, 0, 0, 0.03);
-  --sidebar-section-color:#94a3b8;
-  --glow-amber:          rgba(232, 146, 12, 0.12);
-  --glow-amber-strong:   rgba(232, 146, 12, 0.28);
-  --avatar-bg:           rgba(232, 146, 12, 0.1);
+  --sidebar-header-bg: #f8fafc;
+  --sidebar-border: #e2e8f0;
+  --sidebar-active-bg: rgba(232, 146, 12, 0.06);
+  --sidebar-active-border: #e8920c;
+  --sidebar-hover-bg: rgba(0, 0, 0, 0.03);
+  --sidebar-section-color: #94a3b8;
+  --glow-amber: rgba(232, 146, 12, 0.12);
+  --glow-amber-strong: rgba(232, 146, 12, 0.28);
+  --avatar-bg: rgba(232, 146, 12, 0.1);
 
   /* ─── Noise texture ────────────────────────────────────── */
-  --noise-opacity:  0.025;
-  --noise-filter:  url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  --noise-opacity: 0.025;
+  --noise-filter: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 
   /* ─── Input-specific ────────────────────────────────────── */
-  --input-bg:      #ffffff;
-  --input-border:  #e2e8f0;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
   --input-focus-border: #e8920c;
 
   /* ─── Admin layout-specific ─────────────────────────────── */
-  --admin-sidebar-width:     260px;
-  --admin-sidebar-icon:      64px;
+  --admin-sidebar-width: 260px;
+  --admin-sidebar-icon: 64px;
   --admin-sidebar-transition: 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  --admin-header-height:      64px;
-  --admin-content-max:        1400px;
-  --admin-bottom-nav-height:  64px;
-  --shadow-card-hover:        0 8px 24px rgba(0, 0, 0, 0.12);
+  --admin-header-height: 64px;
+  --admin-content-max: 1400px;
+  --admin-bottom-nav-height: 64px;
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
 
-  /* ─── Footer / meta text ────────────────────────────────── */
-  --footer-text:   #94a3b8;
+  /* ─── Skeleton shimmer (dark mode) ─────────────────────── */
+  --skeleton-base: rgba(255, 255, 255, 0.06);
+  --skeleton-shine: rgba(255, 255, 255, 0.12);
+
+  /* ─── Admin layout fallback tokens ───────────────────── */
+  --color-card: var(--bg-card);
+  --color-border: var(--border);
+}
+
+/* ─── Admin dark-mode overrides ───────────────────────── */
+html.dark .admin-shell,
+html:not(.dark) .admin-shell {
+  --bg-primary: #0a0f1e;
+  --bg-card: #111827;
+  --border: #1e2d45;
+  --text-primary: #f1f5f9;
+  --text-secondary: #8b9bb4;
+  --text-muted: #4a5568;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+  --color-card: #111827;
+  --color-border: #1e2d45;
+  background: #0a0f1e;
+}
+
+/* ─── Sidebar dark-mode fix ─────────────────────────────── */
+html.dark .admin-sidebar {
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+html.dark .admin-sidebar .logo-icon {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+html.dark .admin-sidebar .nav-item {
+  color: var(--text-secondary);
+}
+
+html.dark .admin-sidebar .nav-item:hover {
+  background: var(--bg-overlay);
+  color: var(--text-primary);
+}
+
+html.dark .admin-sidebar .nav-item--active {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--accent-admin);
+}
+
+html.dark .admin-sidebar .user-avatar {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+html.dark .admin-sidebar .logout-btn {
+  color: var(--danger);
+}
+
+html.dark .admin-sidebar .logout-btn:hover {
+  background: var(--danger-muted);
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -162,118 +221,191 @@ a {
    ══════════════════════════════════════════════════════════════ */
 html.dark {
   /* ─── Backgrounds ──────────────────────────────────────── */
-  --bg-primary:    #090e1a;
-  --bg-secondary:  #0f1d35;
-  --bg-card:      #111827;
-  --bg-card-alt:  #0f1d35;
-  --bg-nav:       rgba(17, 24, 39, 0.92);
-  --bg-overlay:   rgba(255, 255, 255, 0.04);
-  --bg-sidebar:   #080d1a;
+  --bg-primary: #090e1a;
+  --bg-secondary: #0f1d35;
+  --bg-card: #111827;
+  --bg-card-alt: #0f1d35;
+  --bg-nav: rgba(17, 24, 39, 0.92);
+  --bg-overlay: rgba(255, 255, 255, 0.04);
+  --bg-sidebar: #080d1a;
 
   /* ─── Borders ──────────────────────────────────────────── */
-  --border:        #1e2d45;
+  --border: #1e2d45;
   --border-strong: #2d3f5c;
-  --border-card:   #1e2d45;
+  --border-card: #1e2d45;
 
   /* ─── Text ─────────────────────────────────────────────── */
-  --text-primary:   #f1f5f9;
+  --text-primary: #f1f5f9;
   --text-secondary: #8b9bb4;
-  --text-muted:     #4a5568;
-  --text-inverse:   #0f172a;
-  --placeholder:    #4a5568;
+  --text-muted: #4a5568;
+  --text-inverse: #0f172a;
+  --placeholder: #4a5568;
 
   /* ─── Accent — stays amber ─────────────────────────────── */
-  --accent:         #e8920c;
-  --accent-hover:   #fbbf24;
-  --accent-muted:   rgba(232, 146, 12, 0.1);
-  --accent-glow:    rgba(232, 146, 12, 0.2);
-  --accent-border:  rgba(232, 146, 12, 0.2);
+  --accent: #e8920c;
+  --accent-hover: #fbbf24;
+  --accent-muted: rgba(232, 146, 12, 0.1);
+  --accent-glow: rgba(232, 146, 12, 0.2);
+  --accent-border: rgba(232, 146, 12, 0.2);
 
   /* ─── Semantic: Success ─────────────────────────────────── */
-  --success:        #34d399;
-  --success-muted:  rgba(52, 211, 153, 0.1);
-  --success-text:   #6ee7b7;
+  --success: #34d399;
+  --success-muted: rgba(52, 211, 153, 0.1);
+  --success-text: #6ee7b7;
   --success-border: rgba(52, 211, 153, 0.25);
 
   /* ─── Semantic: Danger / Error ─────────────────────────── */
-  --danger:         #f87171;
-  --danger-muted:   rgba(248, 113, 113, 0.08);
-  --danger-text:    #f87171;
-  --danger-border:  rgba(248, 113, 113, 0.25);
+  --danger: #f87171;
+  --danger-muted: rgba(248, 113, 113, 0.08);
+  --danger-text: #f87171;
+  --danger-border: rgba(248, 113, 113, 0.25);
 
   /* ─── Admin accent ─────────────────────────────────────── */
-  --accent-admin:     #10b981;
+  --accent-admin: #10b981;
   --accent-admin-hover: #34d399;
   --accent-admin-muted: rgba(16, 185, 129, 0.1);
-  --accent-admin-glow:  rgba(16, 185, 129, 0.2);
+  --accent-admin-glow: rgba(16, 185, 129, 0.2);
   --accent-admin-border: rgba(16, 185, 129, 0.2);
 
   /* ─── Disabled states ──────────────────────────────────── */
-  --disabled:       #1e2d45;
-  --disabled-text:  #4a5568;
+  --disabled: #1e2d45;
+  --disabled-text: #4a5568;
 
   /* ─── Elevation / Shadows ──────────────────────────────── */
-  --shadow-sm:      0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg:      0 12px 32px rgba(0, 0, 0, 0.5);
-  --shadow-card:    0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
   --shadow-input-focus: 0 0 0 3px var(--accent-muted);
 
   /* ─── Sidebar-specific (employee portal) ──────────────── */
-  --sidebar-header-bg:    #0a0f1e;
-  --sidebar-border:       #1a2740;
-  --sidebar-active-bg:    rgba(232, 146, 12, 0.08);
-  --sidebar-active-border:#e8920c;
-  --sidebar-hover-bg:     rgba(255, 255, 255, 0.04);
-  --sidebar-section-color:#2d4a6a;
-  --glow-amber:          rgba(232, 146, 12, 0.18);
-  --glow-amber-strong:   rgba(232, 146, 12, 0.35);
-  --avatar-bg:           rgba(232, 146, 12, 0.12);
+  --sidebar-header-bg: #0a0f1e;
+  --sidebar-border: #1a2740;
+  --sidebar-active-bg: rgba(232, 146, 12, 0.08);
+  --sidebar-active-border: #e8920c;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-section-color: #2d4a6a;
+  --glow-amber: rgba(232, 146, 12, 0.18);
+  --glow-amber-strong: rgba(232, 146, 12, 0.35);
+  --avatar-bg: rgba(232, 146, 12, 0.12);
 
   /* ─── Noise texture ────────────────────────────────────── */
-  --noise-opacity:  0.03;
+  --noise-opacity: 0.03;
 
   /* ─── Input-specific ────────────────────────────────────── */
-  --input-bg:       #0f1d35;
-  --input-border:   #1e2d45;
+  --input-bg: #0f1d35;
+  --input-border: #1e2d45;
   --input-focus-border: #e8920c;
 
   /* ─── Admin layout-specific ─────────────────────────────── */
-  --admin-sidebar-width:     260px;
-  --admin-sidebar-icon:      64px;
+  --admin-sidebar-width: 260px;
+  --admin-sidebar-icon: 64px;
   --admin-sidebar-transition: 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  --admin-header-height:      64px;
-  --admin-content-max:        1400px;
-  --admin-bottom-nav-height:  64px;
-  --shadow-card-hover:        0 8px 24px rgba(0, 0, 0, 0.2);
+  --admin-header-height: 64px;
+  --admin-content-max: 1400px;
+  --admin-bottom-nav-height: 64px;
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+  /* ─── Skeleton shimmer (dark mode) ─────────────────────── */
+  --skeleton-base: rgba(255, 255, 255, 0.07);
+  --skeleton-shine: rgba(255, 255, 255, 0.14);
 
   /* ─── Footer / meta text ────────────────────────────────── */
-  --footer-text:   #4a5568;
+  --footer-text: #4a5568;
+
+  /* ─── Admin layout fallback tokens ───────────────────── */
+  --color-card: var(--bg-card);
+  --color-border: var(--border);
 }
 
 /* ─── Login page shared tokens (used by both login pages) ─── */
 :root {
-  --login-bg:           #f8fafc;
-  --login-card-bg:      #ffffff;
-  --login-card-border:  #e2e8f0;
-  --login-text:         #0f172a;
-  --login-text-sec:     #64748b;
-  --login-glow:         rgba(232, 146, 12, 0.06);
-  --login-grid-color:   rgba(0, 0, 0, 0.04);
+  --login-bg: #f8fafc;
+  --login-card-bg: #ffffff;
+  --login-card-border: #e2e8f0;
+  --login-text: #0f172a;
+  --login-text-sec: #64748b;
+  --login-glow: rgba(232, 146, 12, 0.06);
+  --login-grid-color: rgba(0, 0, 0, 0.04);
   /* Employee login specific */
-  --login-deep-bg:      #f1f5f9;
-  --login-amber-glow:   rgba(232, 146, 12, 0.07);
+  --login-deep-bg: #f1f5f9;
+  --login-amber-glow: rgba(232, 146, 12, 0.07);
 }
 
 html.dark {
-  --login-bg:           #090e1a;
-  --login-card-bg:      #111827;
-  --login-card-border:  #1e2d45;
-  --login-text:         #f1f5f9;
-  --login-text-sec:     #8b9bb4;
-  --login-glow:         rgba(232, 146, 12, 0.07);
-  --login-grid-color:   rgba(255, 255, 255, 0.03);
-  /* Employee login specific */
-  --login-deep-bg:      #090e1a;
-  --login-amber-glow:   rgba(232, 146, 12, 0.07);
+  --login-bg: #090e1a;
+  --login-card-bg: #111827;
+  --login-card-border: #1e2d45;
+  --login-text: #f1f5f9;
+  --login-text-sec: #8b9bb4;
+  /* ══════════════════════════════════════════════════════════════
+   ADMIN LOGIN — "Command Center" (dark, neo-brutalist)
+   Fixed theme — no light/dark switching
+   ══════════════════════════════════════════════════════════════ */
+  .adm-login {
+    /* Backgrounds */
+    --adm-bg: #080c14;
+    --adm-surface: #0d1422;
+    --adm-surface-alt: #111b2e;
+    --adm-border: #1a2540;
+    --adm-border-sharp: #2a3a5c;
+
+    /* Text */
+    --adm-text: #e2e8f0;
+    --adm-muted: #475569;
+    --adm-placeholder: #2d3f5c;
+
+    /* Accent — Electric Indigo */
+    --adm-accent: #6366f1;
+    --adm-accent-glow: rgba(99, 102, 241, 0.2);
+    --adm-accent-hover: #818cf8;
+
+    /* Highlight — Cyan */
+    --adm-highlight: #22d3ee;
+    --adm-highlight-glow: rgba(34, 211, 238, 0.12);
+
+    /* Danger */
+    --adm-danger: #f43f5e;
+    --adm-danger-muted: rgba(244, 63, 94, 0.1);
+
+    /* Typography */
+    --adm-font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --adm-font-body: "Instrument Sans", system-ui, sans-serif;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+   EMPLOYEE LOGIN — "Warm Clock-In" (warm, editorial)
+   Fixed theme — no light/dark switching
+   ══════════════════════════════════════════════════════════════ */
+  .empl-login {
+    /* Backgrounds */
+    --empl-bg: #faf7f4;
+    --empl-surface: #ffffff;
+    --empl-surface-alt: #f5f0eb;
+    --empl-border: #e8ddd4;
+    --empl-border-focus: #c2410c;
+
+    /* Text */
+    --empl-text: #1c1917;
+    --empl-muted: #78716c;
+    --empl-placeholder: #a8a29e;
+
+    /* Accent — Terracotta */
+    --empl-accent: #c2410c;
+    --empl-accent-light: #fed7aa;
+    --empl-accent-muted: rgba(194, 65, 12, 0.08);
+    --empl-accent-hover: #9a3412;
+
+    /* Amber warm highlight */
+    --empl-amber: #f59e0b;
+    --empl-amber-glow: rgba(245, 158, 11, 0.15);
+
+    /* Danger */
+    --empl-danger: #dc2626;
+    --empl-danger-muted: rgba(220, 38, 38, 0.06);
+
+    /* Typography */
+    --empl-font-display: "Fraunces", Georgia, serif;
+    --empl-font-body: "Figtree", system-ui, sans-serif;
+  }
 }

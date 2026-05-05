@@ -10,11 +10,12 @@ const email = ref('')
 const password = ref('')
 const isLoading = ref(false)
 const errorMessage = ref('')
+const showPassword = ref(false)
 
 const emailError = computed(() => {
   if (!email.value) return ''
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email.value) ? '' : 'Please enter a valid email'
+  return emailRegex.test(email.value) ? '' : 'Enter a valid email address'
 })
 
 const isFormValid = computed(() => {
@@ -38,7 +39,7 @@ async function handleLogin() {
 
   if (result.success) {
     localStorage.setItem('user_role', authStore.user?.role || 'employee')
-    router.push(authStore.user?.role === 'admin' ? '/admin' : '/')
+    router.push('/')
   } else {
     errorMessage.value = result.message || 'Login failed. Please check your credentials.'
   }
@@ -46,271 +47,481 @@ async function handleLogin() {
 </script>
 
 <template>
-  <div class="login-page">
-    <div class="login-card">
-      <!-- Icon + Header -->
-      <div class="card-header">
-        <div class="icon-wrap">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
-            <path stroke-linecap="round" stroke-width="1.5" d="M12 7v5l3 3"/>
+  <div class="empl-login login-root">
+    <!-- Left brand panel -->
+    <div class="brand-panel">
+      <div class="brand-blob" aria-hidden="true">
+        <div class="blob-inner"/>
+        <div class="blob-glow"/>
+      </div>
+
+      <div class="brand-content">
+        <!-- Clock illustration -->
+        <div class="clock-wrap">
+          <svg class="clock-svg" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="52" stroke="rgba(194,65,12,0.25)" stroke-width="2"/>
+            <circle cx="60" cy="60" r="52" stroke="url(#clockGrad)" stroke-width="2" stroke-dasharray="8 4" stroke-dashoffset="4"/>
+            <circle cx="60" cy="60" r="38" fill="rgba(194,65,12,0.06)" stroke="rgba(194,65,12,0.2)" stroke-width="1"/>
+            <!-- Hour markers -->
+            <circle cx="60" cy="14" r="2.5" fill="#c2410c" fill-opacity="0.7"/>
+            <circle cx="106" cy="60" r="2.5" fill="#c2410c" fill-opacity="0.7"/>
+            <circle cx="60" cy="106" r="2.5" fill="#c2410c" fill-opacity="0.7"/>
+            <circle cx="14" cy="60" r="2.5" fill="#c2410c" fill-opacity="0.7"/>
+            <!-- Clock hands -->
+            <line x1="60" y1="60" x2="60" y2="30" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="60" y1="60" x2="82" y2="72" stroke="#1c1917" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="4" fill="#c2410c"/>
+            <circle cx="60" cy="60" r="1.5" fill="#fff"/>
+            <defs>
+              <linearGradient id="clockGrad" x1="0" y1="0" x2="120" y2="120">
+                <stop offset="0%" stop-color="#c2410c" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.4"/>
+              </linearGradient>
+            </defs>
           </svg>
         </div>
-        <h1 class="title">Attendance App</h1>
-        <p class="subtitle">Sign in to your account</p>
+
+        <div class="brand-text">
+          <h1 class="brand-name">Attendance</h1>
+          <p class="brand-tagline">Track your time, effortlessly.</p>
+        </div>
       </div>
 
-      <!-- Error Alert -->
-      <div v-if="errorMessage" class="alert">
-        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      <!-- Wave bottom -->
+      <div class="wave-wrap" aria-hidden="true">
+        <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+          <path d="M0,40 C80,80 160,0 240,40 C320,80 400,0 500,40 L500,80 L0,80 Z" fill="rgba(194,65,12,0.12)"/>
         </svg>
-        <span>{{ errorMessage }}</span>
       </div>
-
-      <!-- Form -->
-      <form @submit.prevent="handleLogin" class="form">
-        <div class="field">
-          <label for="email" class="label">Email address</label>
-          <input
-            id="email"
-            v-model="email"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
-            class="input"
-            :class="{ 'input--error': emailError }"
-          />
-          <p v-if="emailError" class="field-error">{{ emailError }}</p>
-        </div>
-
-        <div class="field">
-          <label for="password" class="label">Password</label>
-          <input
-            id="password"
-            v-model="password"
-            type="password"
-            autocomplete="current-password"
-            placeholder="Enter your password"
-            class="input"
-          />
-        </div>
-
-        <button
-          type="submit"
-          :disabled="!isFormValid || isLoading"
-          class="btn"
-        >
-          <span v-if="isLoading" class="btn-spinner">
-            <svg class="spin" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity="0.25"/>
-              <path fill="currentColor" opacity="0.75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-            </svg>
-            Signing in...
-          </span>
-          <span v-else>Sign in</span>
-        </button>
-      </form>
-
-      <!-- Divider -->
-      <div class="divider"/>
-
-      <!-- Register Link -->
-      <p class="register-link">
-        Don't have an account?
-        <a href="#" @click.prevent="router.push('/register')" class="link">Sign up</a>
-      </p>
     </div>
 
-    <!-- Footer -->
-    <p class="footer">© 2026 Attendance App. All rights reserved.</p>
+    <!-- Right form panel -->
+    <div class="form-panel">
+      <div class="form-inner">
+        <!-- Icon -->
+        <div class="form-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="form-header">
+          <h2 class="form-title">Ready to clock in?</h2>
+          <p class="form-sub">Sign in to track your attendance</p>
+        </div>
+
+        <!-- Error Alert -->
+        <transition name="alert-slide">
+          <div v-if="errorMessage" class="error-alert">
+            <svg class="alert-svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ errorMessage }}</span>
+          </div>
+        </transition>
+
+        <form @submit.prevent="handleLogin" class="login-form">
+          <div class="field">
+            <label for="email" class="field-label">Email address</label>
+            <input
+              id="email"
+              v-model="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@company.com"
+              class="field-input"
+              :class="{ 'is-error': emailError }"
+            />
+            <p v-if="emailError" class="field-err">{{ emailError }}</p>
+          </div>
+
+          <div class="field">
+            <label for="password" class="field-label">Password</label>
+            <div class="input-wrap">
+              <input
+                id="password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                autocomplete="current-password"
+                placeholder="Your password"
+                class="field-input has-suffix"
+              />
+              <button
+                type="button"
+                class="toggle-pw"
+                :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                @click="showPassword = !showPassword"
+              >
+                <svg v-if="!showPassword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M13.875 18.825A10.05 10.05 0 0112 19c-7 0-10-7-10-7a18.5 18.5 0 015.625-4.95M9.53 9.53A4.5 4.5 0 0012 6c3.18 0 5.425 2.035 6.7 4.95M1 1l22 22"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            :disabled="!isFormValid || isLoading"
+            class="submit-btn"
+          >
+            <span v-if="isLoading" class="loading-wrap">
+              <svg class="spin" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/>
+                <path fill="currentColor" opacity="0.75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+              </svg>
+              Signing in...
+            </span>
+            <span v-else>Sign in</span>
+          </button>
+        </form>
+
+        <!-- Admin link -->
+        <div class="alt-action">
+          <span>Admin user?</span>
+          <a href="#" @click.prevent="router.push('/admin/login')" class="alt-link">
+            Use admin portal
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </div>
+
+        <p class="form-footer">© 2026 Attendance App</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-:root {
-  --bg: #0f172a;
-  --card-bg: #1e293b;
-  --card-border: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --input-bg: #0f172a;
-  --input-border: #334155;
-  --accent: #f59e0b;
-  --accent-glow: rgba(245, 158, 11, 0.15);
-  --accent-hover: #d97706;
-  --error-bg: rgba(239, 68, 68, 0.08);
-  --error-border: rgba(239, 68, 68, 0.3);
-  --error-text: #fca5a5;
+/* ── Root layout ─────────────────────────────────── */
+.login-root {
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  min-height: 100vh;
+  font-family: var(--empl-font-body);
+  background: var(--empl-bg);
+  color: var(--empl-text);
 }
 
-.login-page {
-  min-height: 100vh;
+@media (max-width: 768px) {
+  .login-root {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* ── Left brand panel ───────────────────────────── */
+.brand-panel {
+  position: relative;
+  background: var(--empl-bg);
+  background-image: radial-gradient(circle at 30% 40%, rgba(194,65,12,0.08) 0%, transparent 55%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: panelFadeUp 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes panelFadeUp {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Animated blob */
+.brand-blob {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.blob-inner {
+  width: 320px;
+  height: 320px;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  background: radial-gradient(ellipse at 40% 40%, rgba(245,158,11,0.14), rgba(194,65,12,0.07));
+  animation: blobMorph 8s ease-in-out infinite;
+}
+
+.blob-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+  animation: blobGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes blobMorph {
+  0%   { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: scale(1) rotate(0deg); }
+  50%  { border-radius: 40% 60% 30% 70% / 60% 40% 50% 60%; transform: scale(1.05) rotate(5deg); }
+  100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes blobGlow {
+  from { transform: scale(0.9); opacity: 0.6; }
+  to   { transform: scale(1.1); opacity: 1; }
+}
+
+/* Brand content */
+.brand-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg);
-  background-image:
-    radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 50%),
-    radial-gradient(ellipse at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
-  background-size: 100% 100%, 24px 24px;
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  padding: 1rem;
-  animation: fadeIn 400ms ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.login-card {
-  width: 100%;
-  max-width: 420px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 1rem;
-  padding: 2.5rem;
-}
-
-.card-header {
+  flex: 1;
+  padding: 3rem 2rem 2rem;
   text-align: center;
-  margin-bottom: 2rem;
 }
 
-.icon-wrap {
+.clock-wrap {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+  animation: clockFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(194,65,12,0.18));
+}
+
+@keyframes clockFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.clock-svg { width: 100%; height: 100%; }
+
+.brand-text { margin-top: 0.5rem; }
+
+.brand-name {
+  font-family: var(--empl-font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-variation-settings: 'opsz' 72;
+  color: var(--empl-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.brand-tagline {
+  font-size: 0.9375rem;
+  color: var(--empl-muted);
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+/* Wave */
+.wave-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+}
+
+.wave-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Right form panel ───────────────────────────── */
+.form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--empl-bg);
+  animation: formSlideUp 600ms 100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes formSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.form-inner {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Icon */
+.form-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 1rem;
-  background: var(--accent-glow);
-  margin-bottom: 1rem;
-  box-shadow: 0 0 2rem var(--accent-glow);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--empl-accent-muted);
+  border: 1px solid var(--empl-accent-light);
+  color: var(--empl-accent);
+  margin-bottom: 1.25rem;
 }
 
-.icon {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: var(--accent);
-}
+.form-icon svg { width: 22px; height: 22px; }
 
-.title {
-  font-size: 1.5rem;
+/* Form header */
+.form-header { margin-bottom: 1.75rem; }
+
+.form-title {
+  font-family: var(--empl-font-display);
+  font-size: 1.625rem;
   font-weight: 700;
-  color: var(--text-primary);
+  font-variation-settings: 'opsz' 72;
+  color: var(--empl-text);
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-.subtitle {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+.form-sub {
+  font-size: 0.9375rem;
+  color: var(--empl-muted);
   margin-top: 0.375rem;
 }
 
-.alert {
+/* Error alert */
+.error-alert {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: var(--error-bg);
-  border: 1px solid var(--error-border);
-  border-radius: 0.75rem;
-  color: var(--error-text);
-  font-size: 0.8125rem;
+  background: var(--empl-danger-muted);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 10px;
+  color: var(--empl-danger);
+  font-size: 0.875rem;
   margin-bottom: 1.5rem;
 }
 
-.alert-icon {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-}
+.alert-svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-.form {
+.alert-slide-enter-active,
+.alert-slide-leave-active { transition: all 250ms ease; }
+.alert-slide-enter-from   { opacity: 0; transform: translateY(-8px); }
+.alert-slide-leave-to     { opacity: 0; transform: translateY(-8px); }
+
+/* Form */
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
+.field { display: flex; flex-direction: column; gap: 0.375rem; }
 
-.label {
+.field-label {
   font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-secondary);
+  font-weight: 600;
+  color: var(--empl-muted);
+  font-family: var(--empl-font-body);
 }
 
-.input {
+.field-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 0.625rem;
-  color: var(--text-primary);
-  font-family: inherit;
+  background: var(--empl-surface-alt);
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  color: var(--empl-text) !important;
+  font-family: var(--empl-font-body);
   font-size: 0.9375rem;
-  transition: border-color 200ms, box-shadow 200ms;
+  transition: border-color 200ms, box-shadow 200ms, background 200ms;
   box-sizing: border-box;
 }
 
-.input::placeholder {
-  color: rgba(148, 163, 184, 0.5);
-}
+.field-input::placeholder { color: var(--empl-placeholder); }
 
-.input:focus {
+.field-input:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-color: var(--empl-accent);
+  background: var(--empl-surface);
+  box-shadow: 0 0 0 3px var(--empl-accent-muted);
 }
 
-.input--error {
-  border-color: rgba(239, 68, 68, 0.6);
-  background: rgba(239, 68, 68, 0.04);
+.field-input.is-error {
+  border-color: rgba(220, 38, 38, 0.5);
+  background: var(--empl-danger-muted);
 }
 
-.field-error {
+/* Autofill */
+.field-input:-webkit-autofill,
+.field-input:-webkit-autofill:hover,
+.field-input:-webkit-autofill:focus,
+.field-input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--empl-text) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--empl-surface-alt) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.field-err {
   font-size: 0.75rem;
-  color: #fca5a5;
+  color: var(--empl-danger);
 }
 
-.btn {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--accent);
-  color: #0f172a;
-  font-family: inherit;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  border-radius: 0.625rem;
+/* Password toggle */
+.input-wrap { position: relative; }
+.has-suffix  { padding-right: 2.75rem; }
+
+.toggle-pw {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
   cursor: pointer;
-  transition: background 200ms, transform 100ms;
-  box-shadow: 0 4px 1.5rem rgba(245, 158, 11, 0.2);
+  color: var(--empl-placeholder);
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 150ms;
+  display: flex;
+  align-items: center;
 }
 
-.btn:hover:not(:disabled) {
-  background: var(--accent-hover);
+.toggle-pw:hover { color: var(--empl-muted); }
+.toggle-pw svg   { width: 18px; height: 18px; }
+
+/* Submit */
+.submit-btn {
+  width: 100%;
+  padding: 0.8125rem 1rem;
+  background: var(--empl-accent);
+  color: #fff;
+  font-family: var(--empl-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 200ms, box-shadow 200ms, transform 120ms;
+  box-shadow: 0 4px 16px rgba(194, 65, 12, 0.2);
+  margin-top: 0.5rem;
 }
 
-.btn:active:not(:disabled) {
-  transform: scale(0.98);
+.submit-btn:hover:not(:disabled) {
+  background: var(--empl-accent-hover);
+  box-shadow: 0 6px 20px rgba(194, 65, 12, 0.3);
+  transform: translateY(-1px);
 }
 
-.btn:disabled {
-  background: #334155;
-  color: #64748b;
+.submit-btn:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+
+.submit-btn:disabled {
+  background: var(--empl-border);
+  color: var(--empl-placeholder);
   cursor: not-allowed;
   box-shadow: none;
 }
 
-.btn-spinner {
+.loading-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,8 +529,8 @@ async function handleLogin() {
 }
 
 .spin {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
   animation: spin 700ms linear infinite;
 }
 
@@ -328,34 +539,63 @@ async function handleLogin() {
   to   { transform: rotate(360deg); }
 }
 
-.divider {
-  height: 1px;
-  background: var(--card-border);
-  margin: 1.5rem 0;
-}
-
-.register-link {
-  text-align: center;
+/* Alt action */
+.alt-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-top: 1.5rem;
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--empl-muted);
 }
 
-.link {
-  color: var(--accent);
+.alt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--empl-accent);
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: color 150ms;
+  transition: color 150ms, gap 150ms;
 }
 
-.link:hover {
-  color: var(--accent-hover);
-}
+.alt-link:hover { color: var(--empl-accent-hover); gap: 0.375rem; }
+.alt-link svg  { width: 14px; height: 14px; transition: transform 150ms; }
+.alt-link:hover svg { transform: translateX(2px); }
 
-.footer {
-  margin-top: 1.5rem;
+/* Footer */
+.form-footer {
+  margin-top: 2rem;
   font-size: 0.75rem;
-  color: #475569;
+  color: var(--empl-placeholder);
   text-align: center;
+  opacity: 0.7;
+}
+
+/* ── Mobile ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .brand-panel {
+    min-height: 200px;
+    padding: 2rem 1.5rem;
+  }
+
+  .brand-blob { display: none; }
+
+  .brand-content {
+    padding: 1.5rem 1.5rem;
+    justify-content: center;
+  }
+
+  .clock-wrap { width: 80px; height: 80px; margin-bottom: 1rem; }
+  .brand-name { font-size: 1.5rem; }
+  .brand-tagline { font-size: 0.875rem; }
+
+  .form-panel {
+    animation-name: formSlideUp;
+    padding: 1.5rem;
+    align-items: flex-start;
+  }
 }
 </style>

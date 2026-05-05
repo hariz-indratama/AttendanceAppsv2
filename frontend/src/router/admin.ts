@@ -3,17 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 const NotFoundPage = { template: '<div class="p-6 text-gray-500">404 — Page not found</div>' }
 
 const router = createRouter({
-  history: createWebHistory('/admin'),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // Auth routes (non-base: served from root at /login)
+    // Admin login only — base '/admin/' + '/login' = /admin/login
     {
       path: '/login',
-      name: 'employee-login',
-      component: () => import('@/pages/employee/EmployeeLoginPage.vue'),
-      meta: { requiresAuth: false },
-    },
-    {
-      path: '/admin-login',
       name: 'admin-login',
       component: () => import('@/pages/admin/AdminLoginPage.vue'),
       meta: { requiresAuth: false },
@@ -46,24 +40,12 @@ router.beforeEach((to, _from) => {
   const token = localStorage.getItem('auth_token')
   const userRole = localStorage.getItem('user_role')
 
-  // Redirect logged-in admins away from login page
-  if (to.name === 'admin-login' && token && userRole === 'admin') {
-    return { name: 'admin-dashboard' }
-  }
-
-  // Protect admin routes
-  if (to.meta.role === 'admin' && !token) {
+  if (to.meta.requiresAuth !== false && !token && to.meta.role === 'admin') {
     return { name: 'admin-login' }
   }
 
-  // Redirect logged-in employees away from login page
-  if (to.name === 'employee-login' && token && userRole === 'employee') {
-    return { name: 'employee-dashboard' }
-  }
-
-  // Protect employee routes
-  if (to.path.startsWith('/employee') && to.meta.role === 'employee' && !token) {
-    return { name: 'employee-login' }
+  if (to.name === 'admin-login' && token && userRole === 'admin') {
+    return { name: 'admin-dashboard' }
   }
 
   return true

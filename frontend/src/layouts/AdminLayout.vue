@@ -1,52 +1,26 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import AdminSidebar from '@/components/admin/AdminSidebar.vue'
 
 const route = useRoute()
-const isDrawerOpen = ref(false)
 
 const pageTitle = computed(() => {
   const name = route.name?.toString() || 'Dashboard'
   return name.replace('admin-', '').replace(/-/g, ' ')
 })
-
-function openDrawer() {
-  isDrawerOpen.value = true
-}
-
-function closeDrawer() {
-  isDrawerOpen.value = false
-}
 </script>
 
 <template>
   <div class="admin-shell">
-    <!-- Sidebar (desktop/tablet) + Bottom nav + Drawer (mobile) -->
-    <AdminSidebar
-      :isDrawerOpen="isDrawerOpen"
-      @closeDrawer="closeDrawer"
-    />
+    <!-- Fixed Sidebar (desktop only) -->
+    <AdminSidebar />
 
     <!-- Main Content Area -->
     <div class="admin-main">
       <!-- Top Header -->
       <header class="admin-header">
-        <div class="header-left">
-          <!-- Hamburger — only visible on mobile -->
-          <button
-            @click="openDrawer"
-            class="hamburger-btn"
-            aria-label="Open menu"
-            type="button"
-          >
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <h1 class="page-title">{{ pageTitle }}</h1>
-        </div>
+        <h1 class="page-title">{{ pageTitle }}</h1>
         <div class="header-right">
           <slot name="header-actions" />
         </div>
@@ -54,9 +28,7 @@ function closeDrawer() {
 
       <!-- Page Content -->
       <main class="admin-content">
-        <div class="admin-content-inner">
-          <router-view />
-        </div>
+        <router-view />
       </main>
     </div>
   </div>
@@ -65,20 +37,18 @@ function closeDrawer() {
 <style scoped>
 /* ─── Shell ────────────────────────────────────────────────── */
 .admin-shell {
-  min-height: 100%;
-  min-height: 100dvh;
-  background: var(--bg-primary);
+  min-height: 100vh;
+  background: var(--background);
   display: flex;
 }
 
 /* ─── Main Area ───────────────────────────────────────────── */
 .admin-main {
   flex: 1;
-  margin-left: var(--admin-sidebar-width);
+  margin-left: 260px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  transition: margin-left var(--admin-sidebar-transition);
 }
 
 /* ─── Header ──────────────────────────────────────────────── */
@@ -86,113 +56,61 @@ function closeDrawer() {
   position: sticky;
   top: 0;
   z-index: 20;
-  height: var(--admin-header-height);
-  background: var(--bg-card);
+  height: 64px;
+  background: var(--card);
   border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   gap: 1rem;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  min-width: 0;
-}
-
-.hamburger-btn {
-  display: none;
-  width: 2.25rem;
-  height: 2.25rem;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  border-radius: var(--radius-md);
-  transition: background 150ms, color 150ms;
-  flex-shrink: 0;
-}
-
-.hamburger-btn:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
-.hamburger-btn svg {
-  width: 1.375rem;
-  height: 1.375rem;
-}
-
 .page-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--foreground);
   letter-spacing: -0.02em;
   text-transform: capitalize;
-  white-space: nowrap;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
+  gap: 1rem;
+  margin-left: auto;
 }
 
 /* ─── Content ─────────────────────────────────────────────── */
 .admin-content {
   flex: 1;
-  padding: 1.5rem;
+  padding: 2rem;
+  max-width: 1400px;
+  width: 100%;
 }
 
-.admin-content-inner {
-  max-width: var(--admin-content-max);
-  margin: 0 auto;
-}
-
-/* ─── Responsive: Tablet ───────────────────────────────────── */
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .admin-main {
-    margin-left: var(--admin-sidebar-icon);
-  }
-}
-
-/* ─── Responsive: Mobile ────────────────────────────────────── */
-@media (max-width: 767px) {
-  .admin-main {
-    margin-left: 0;
-  }
-
-  .admin-header {
-    padding: 0 1rem;
-  }
-
-  .hamburger-btn {
-    display: flex;
-  }
-
-  .page-title {
-    font-size: 1.125rem;
+    margin-left: 64px;
   }
 
   .admin-content {
-    padding: 1rem;
-    /* Space for bottom nav bar */
-    padding-bottom: calc(var(--admin-bottom-nav-height) + 1rem);
+    padding: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .admin-content {
-    padding: 0.75rem;
-    padding-bottom: calc(var(--admin-bottom-nav-height) + 0.75rem);
-  }
+/* ─── Dark mode ───────────────────────────────────────────── */
+:global(.dark) .admin-shell {
+  background: var(--background);
+}
+
+:global(.dark) .admin-header {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+:global(.dark) .page-title {
+  color: var(--foreground);
 }
 </style>

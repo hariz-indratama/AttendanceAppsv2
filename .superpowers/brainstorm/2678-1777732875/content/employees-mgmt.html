@@ -1,0 +1,26 @@
+<h2>Employees Admin Page</h2>
+<p class="subtitle">How should employee management be structured?</p>
+
+<div class="options">
+  <div class="option" data-choice="table-modal" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Table + Slide-over Panel</h3>
+      <p>Employee list in a data table. "Add Employee" opens a side panel form. Actions column per row (Edit / Remove)</p>
+    </div>
+  </div>
+  <div class="option" data-choice="table-modal-confirm" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Table + Modal + Confirm</h3>
+      <p>Employee list table. Add opens a full modal form. Remove shows a confirmation dialog before deleting</p>
+    </div>
+  </div>
+  <div class="option" data-choice="table-drawer" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Table + Right Drawer</h3>
+      <p>Full-width data table. Right drawer for add/edit forms. Inline delete with undo toast confirmation</p>
+    </div>
+  </div>
+</div>

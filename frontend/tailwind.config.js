@@ -96,6 +96,10 @@ export default {
         'card-hover': 'var(--shadow-card-hover)',
         focus:  'var(--shadow-input-focus)',
       },
+      backgroundColor: {
+        skeleton:  'var(--skeleton-base)',
+        'skeleton-shine': 'var(--skeleton-shine)',
+      },
     },
   },
   plugins: [],

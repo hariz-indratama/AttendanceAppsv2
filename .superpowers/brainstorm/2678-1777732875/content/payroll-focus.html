@@ -1,0 +1,26 @@
+<h2>Admin Payroll Page</h2>
+<p class="subtitle">How should payroll be structured for admins?</p>
+
+<div class="options">
+  <div class="option" data-choice="calculator" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Salary Setup + Calculator</h3>
+      <p>First set per-employee hourly rate / base salary, then auto-calculate monthly pay from attendance logs</p>
+    </div>
+  </div>
+  <div class="option" data-choice="processing" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Payroll Processing View</h3>
+      <p>Monthly run: select period → preview calculations → approve → export. Shows pending/processing/approved states</p>
+    </div>
+  </div>
+  <div class="option" data-choice="full" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>All-in-One Payroll Hub</h3>
+      <p>Salary setup per employee, monthly processing, payslip preview, Excel + PDF export — all in one page</p>
+    </div>
+  </div>
+</div>

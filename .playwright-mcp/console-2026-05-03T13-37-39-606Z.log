@@ -1,0 +1,7 @@
+[     192ms] [LOG] 🍍 "auth" store installed 🆕 @ http://localhost:5174/node_modules/.vite/deps/pinia.js?v=a050f735:3798
+[    8575ms] [LOG] 🍍 "auth" store installed 🆕 @ http://localhost:5174/node_modules/.vite/deps/pinia.js?v=a050f735:3798
+[    9564ms] [ERROR] Access to XMLHttpRequest at 'http://localhost:8080/api/api/admin/dashboard/stats' from origin 'http://localhost:5174' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'http://localhost:5173' that is not equal to the supplied origin. @ http://localhost:5174/admin:0
+[    9568ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8080/api/api/admin/dashboard/stats:0
+[    9961ms] [ERROR] Access to XMLHttpRequest at 'http://localhost:8080/api/api/admin/employees?per_page=10&page=1' from origin 'http://localhost:5174' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'http://localhost:5173' that is not equal to the supplied origin. @ http://localhost:5174/admin:0
+[    9966ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8080/api/api/admin/employees?per_page=10&page=1:0
+[  373833ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5174/@vite/client:968

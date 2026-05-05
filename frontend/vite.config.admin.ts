@@ -4,17 +4,18 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
+  root: './admin',
   define: {
     __APP_CONTEXT__: JSON.stringify('admin'),
   },
   plugins: [
     vue(),
     vueDevTools(),
-    // No vite-plugin-pwa — admin dashboard doesn't need PWA features
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      vue: fileURLToPath(new URL('./node_modules/vue/dist/vue.esm-bundler.js', import.meta.url)),
     },
   },
   server: {
