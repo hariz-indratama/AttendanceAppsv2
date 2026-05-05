@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { authService } from '@/api/auth.service'
+import { apiClient } from '@/api/axios'
 import type { User } from '@/types/auth'
 
 export const useProfileStore = defineStore('profile', () => {
@@ -24,8 +25,15 @@ export const useProfileStore = defineStore('profile', () => {
 
   async function updateProfile(data: Partial<User>) {
     isLoading.value = true
+    error.value = null
     try {
+      const response = await apiClient.put('/auth/profile', data)
+      profile.value = response.data
       return { success: true }
+    } catch (e) {
+      const err = e as { response?: { data?: { message?: string } } }
+      error.value = err.response?.data?.message || 'Failed to update profile'
+      return { success: false, error: error.value }
     } finally {
       isLoading.value = false
     }
