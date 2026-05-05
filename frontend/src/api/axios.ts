@@ -1,14 +1,22 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
+import { useAuthStore } from '@/store/auth'
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
   timeout: 15000,
 })
+
+function handleUnauthorized(): void {
+  const authStore = useAuthStore()
+  const currentPath = window.location.pathname
+  authStore.setRedirectPath(currentPath)
+  window.location.href = authStore.loginPath
+}
 
 apiClient.interceptors.request.use(
   (config) => {
@@ -46,14 +54,14 @@ apiClient.interceptors.response.use(
         } catch (refreshError) {
           localStorage.removeItem('auth_token')
           localStorage.removeItem('refresh_token')
-          window.location.href = '/login'
+          handleUnauthorized()
           return Promise.reject(refreshError)
         }
       }
 
       localStorage.removeItem('auth_token')
       localStorage.removeItem('refresh_token')
-      window.location.href = '/login'
+      handleUnauthorized()
     }
 
     return Promise.reject(error)
