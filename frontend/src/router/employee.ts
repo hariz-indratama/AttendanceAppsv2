@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/store/auth'
 
 const NotFoundPage = { template: '<div class="p-6 text-gray-500">404 — Page not found</div>' }
 
@@ -39,14 +40,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _from) => {
-  const token = localStorage.getItem('auth_token')
-  const userRole = localStorage.getItem('user_role')
+  const authStore = useAuthStore()
+  const { token, user, isAuthenticated } = authStore
 
   if (to.meta.requiresAuth !== false && !token && to.meta.role === 'employee') {
+    authStore.setLoginPath('/login')
+    authStore.setRedirectPath(to.fullPath)
     return { name: 'employee-login' }
   }
 
-  if (to.name === 'employee-login' && token && userRole === 'employee') {
+  if (to.name === 'employee-login' && token && user?.role === 'employee') {
     return { name: 'employee-dashboard' }
   }
 
