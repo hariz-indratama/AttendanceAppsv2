@@ -76,7 +76,7 @@ const buildNumber = '2026.05.03'
 </template>
 
 <style scoped>
-/* All styles consume global CSS tokens from base.css */
+/* All styles consume global CSS tokens from main.css */
 .page {
   display: flex;
   flex-direction: column;

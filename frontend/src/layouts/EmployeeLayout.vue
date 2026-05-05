@@ -57,7 +57,7 @@ const initials = computed(() => {
 </template>
 
 <style scoped>
-/* ─── Shell — uses global design tokens from base.css ──── */
+/* ─── Shell — uses global design tokens from main.css ──── */
 .emp-shell {
   min-height: 100dvh;
   background: var(--bg-primary);

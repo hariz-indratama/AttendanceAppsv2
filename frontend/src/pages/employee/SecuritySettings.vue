@@ -110,7 +110,7 @@ function geoDotColor(): string {
 </template>
 
 <style scoped>
-/* All styles consume global CSS tokens from base.css */
+/* All styles consume global CSS tokens from main.css */
 .page {
   display: flex;
   flex-direction: column;

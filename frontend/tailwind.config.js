@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Map Tailwind utilities → CSS design tokens from base.css
+        // Map Tailwind utilities → CSS design tokens from main.css
         bg: {
           primary:   'var(--bg-primary)',
           secondary: 'var(--bg-secondary)',

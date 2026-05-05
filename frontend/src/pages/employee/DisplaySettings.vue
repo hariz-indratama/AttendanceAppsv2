@@ -61,7 +61,7 @@ const themes = [
 </template>
 
 <style scoped>
-/* All styles consume global CSS tokens from base.css — no local token map needed */
+/* All styles consume global CSS tokens from main.css — no local token map needed */
 
 .page {
   display: flex;
