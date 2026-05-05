@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { ToastContainer } from '@/components/shared'
 </script>
 
 <template>
+  <ToastContainer />
   <RouterView />
 </template>
 
