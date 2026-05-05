@@ -1,22 +1,19 @@
 import 'leaflet/dist/leaflet.css'
 import './assets/base.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import adminRouter from './router/admin'
-import employeeRouter from './router/employee'
 import { useTheme } from './composables/useTheme'
+import type { Router } from 'vue-router'
 
-const context = (import.meta as any).env?.__APP_CONTEXT__ ?? 'employee'
-const router = context === 'admin' ? adminRouter : employeeRouter
+export function createAppInstance(router: Router) {
+  const app = createApp(App)
+  const pinia = createPinia()
 
-const app = createApp(App)
+  app.use(pinia)
+  app.use(router)
 
-app.use(createPinia())
-app.use(router)
+  useTheme().init()
 
-// Init theme before mount to avoid flash
-useTheme().init()
-
-app.mount('#app')
+  return app
+}
