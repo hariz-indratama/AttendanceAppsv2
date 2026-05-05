@@ -1,0 +1,416 @@
+/* ─── Settings Page Shared Tokens ──────────────────────────────────────────── */
+:root {
+  --admin-bg: #0a0f1e;
+  --admin-card: #111827;
+  --admin-border: #1e2d45;
+  --card-hover: #162032;
+  --admin-text: #f1f5f9;
+  --admin-text-secondary: #8b9bb4;
+  --admin-text-muted: #4a5568;
+  --admin-accent: #e8920c;
+  --admin-accent-muted: rgba(232, 146, 12, 0.08);
+  --accent-border: rgba(232, 146, 12, 0.3);
+  --success: #34d399;
+  --success-muted: rgba(52, 211, 153, 0.1);
+  --admin-danger: #f87171;
+  --admin-danger-muted: rgba(248, 113, 113, 0.08);
+  --input-bg: #0f1d35;
+  --input-border: #1e2d45;
+  --input-focus-border: #e8920c;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+}
+
+/* ─── Shared Card Styles ──────────────────────────────────────────────────── */
+.card {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.25rem;
+  padding: 1.375rem 1.5rem;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--admin-text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+.card-title-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--admin-accent);
+  flex-shrink: 0;
+}
+
+/* ─── Shared Field Styles ─────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+.field-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--admin-text-secondary);
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  border-radius: 0.75rem;
+  color: var(--admin-text);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  transition: border-color 200ms, box-shadow 200ms;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field-input::placeholder {
+  color: var(--admin-text-muted);
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px rgba(232, 146, 12, 0.15);
+}
+
+.field-input--mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.field-input--unit {
+  padding-right: 2.5rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.field-divider {
+  color: var(--admin-text-muted);
+  font-size: 1.25rem;
+  padding-top: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ─── Shared Button Styles ─────────────────────────────────────────────────── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  background: transparent;
+  border: 1px solid var(--admin-border);
+  border-radius: 0.625rem;
+  color: var(--admin-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+
+.btn-outline:hover {
+  background: var(--card-hover);
+  border-color: var(--admin-text-muted);
+  color: var(--admin-text);
+}
+
+.btn-outline-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* ─── GeofenceSection Styles ───────────────────────────────────────────────── */
+.input-with-unit {
+  position: relative;
+}
+
+.unit-label {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  pointer-events: none;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  margin-top: 0.25rem;
+}
+
+.quick-radius {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.quick-radius-label {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+}
+
+.quick-btn {
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  color: var(--admin-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+
+.quick-btn:hover {
+  background: var(--admin-accent-muted);
+  border-color: var(--accent-border);
+  color: var(--admin-accent);
+}
+
+.quick-btn--active {
+  background: var(--admin-accent-muted);
+  border-color: var(--accent-border);
+  color: var(--admin-accent);
+}
+
+/* ─── CoordinatesSection Styles ────────────────────────────────────────────── */
+.coords-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.coords-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.coords-status {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--success);
+}
+
+.status-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* ─── SettingsMap Styles ───────────────────────────────────────────────────── */
+.map-card {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.map-header {
+  padding: 1.375rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.map-hint {
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+  margin-top: 0.25rem;
+  margin-left: 1.625rem;
+}
+
+.map-container {
+  height: 420px;
+  width: 100%;
+  background: #0a0f1a;
+}
+
+/* Override Leaflet styles for dark theme */
+:deep(.leaflet-container) {
+  background: #0a0f1a;
+  font-family: var(--font-body);
+}
+
+:deep(.leaflet-control-zoom) {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:deep(.leaflet-control-zoom a) {
+  background: var(--admin-card) !important;
+  color: var(--admin-text-secondary) !important;
+  border: 1px solid var(--admin-border) !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  line-height: 2rem !important;
+  font-size: 1rem !important;
+}
+
+:deep(.leaflet-control-zoom a:hover) {
+  background: var(--card-hover) !important;
+  color: var(--admin-text) !important;
+}
+
+:deep(.leaflet-control-zoom-in) {
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+:deep(.leaflet-control-zoom-out) {
+  border-radius: 0 0 0.5rem 0.5rem !important;
+}
+
+:deep(.leaflet-control-attribution) {
+  background: rgba(10, 15, 30, 0.8) !important;
+  color: var(--admin-text-muted) !important;
+  font-size: 0.625rem !important;
+}
+
+:deep(.leaflet-control-attribution a) {
+  color: var(--admin-text-muted) !important;
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--admin-border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+}
+
+.legend-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot--marker {
+  background: var(--admin-accent);
+  box-shadow: 0 0 6px rgba(232, 146, 12, 0.5);
+}
+
+.legend-dot--radius {
+  background: transparent;
+  border: 2px dashed var(--admin-accent);
+}
+
+/* ─── SettingsToast Styles ──────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5rem;
+  z-index: 9999;
+  background: var(--admin-card);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 0.875rem;
+  padding: 0.875rem 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  box-shadow: 0 8px 2rem rgba(0, 0, 0, 0.5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--success);
+}
+
+.toast-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--success-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast-icon svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--success);
+}
+
+.toast-close {
+  margin-left: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.125rem;
+  transition: color 150ms;
+}
+
+.toast-close:hover {
+  color: var(--admin-text-secondary);
+}
+
+.toast-close svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.toast-enter {
+  animation: toastSlideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-leave {
+  animation: toastFadeOut 200ms ease-in forwards;
+}
+
+@keyframes toastSlideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastFadeOut {
+  to { opacity: 0; transform: translateY(8px) scale(0.96); }
+}
